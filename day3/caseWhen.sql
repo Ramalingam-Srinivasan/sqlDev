@@ -56,3 +56,22 @@ WHEN description LIKE '%Drama%' AND length>90 THEN 'Long drama (tier 2)'
 WHEN description LIKE '%Drama%' THEN 'Short drama (tier 3)'
 WHEN rental_rate<1 THEN 'Very cheap (tier 4)'
 END is not null
+
+
+
+----Write a single SQL query to calculate the total income and total expenses from the transactions table.
+--Additionally, calculate the net income (total income - total expenses) as a separate column in the result.
+
+--Key information for the challenge:
+
+--Table name: transactions
+
+--Column names needed: amount, category
+
+--Use aliases for the total income, total expenses, and net income as TotalIncome, TotalExpenses, and NetIncome, respectively.
+
+SELECT 
+    SUM(CASE WHEN category = 'Income' THEN amount ELSE 0 END) AS TotalIncome,
+    SUM(CASE WHEN category = 'Expense' THEN amount ELSE 0 END) AS TotalExpenses,
+    SUM(CASE WHEN category = 'Income' THEN amount ELSE -amount END) AS NetIncome
+FROM transactions;
